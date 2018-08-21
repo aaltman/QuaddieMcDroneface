@@ -13,7 +13,7 @@ arm_body_section_length = 40;
  
 module arm_cross_section()
 {
-    scale(0.2)
+    scale(0.35)
     polygon(points = airfoil_data(32));    
 }
 
@@ -53,6 +53,38 @@ module arms()
 }
 
 arms();
+
+module motor_cover()
+{
+    difference()
+    {
+        rotate_extrude()
+        Rz(90)
+        scale(0.8) // A little bigger than 1cm radius
+        difference()
+        {
+            polygon(points = airfoil_data(default_af)); 
+            square(100, 100);
+        }      
+        T(-50,-50,20)
+        cube(100);
+    }
+}
+
+module motor_covers()
+{
+    xy_offset = 85;
+    z_offset = 40;
+    T(xy_offset, xy_offset, z_offset)
+    motor_cover();
+    T(xy_offset, -xy_offset, z_offset)
+    motor_cover();
+    T(-xy_offset, -xy_offset, z_offset)
+    motor_cover();
+    T(-xy_offset, xy_offset, z_offset)
+    motor_cover();
+}
+motor_covers();
  
 module fuselage()
 {
