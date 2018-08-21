@@ -24,7 +24,7 @@ module shrouds() {
 
 shrouds();
  
-default_af = 33; // NACA 0033 - pretty fat, good stall behavior
+default_af = 24; // NACA 0033 - pretty fat, good stall behavior
 prop_length = 153;
 prop_radius = prop_length / 2;
 arm_body_section_length = 40;
@@ -106,16 +106,17 @@ motor_covers();
  
 module fuselage()
 {
-    scale([0.8, 1.2])
+    scale([0.8, 1.5])
     rotate_extrude()
     Rz(90)
-    scale(1.8)
+    scale(3)
     difference()
     {
         polygon(points = airfoil_data(default_af)); 
         square(100, 100); 
     }    
 }
+T(0,0,-20)
 fuselage();
 
 
