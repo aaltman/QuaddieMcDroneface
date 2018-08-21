@@ -7,7 +7,22 @@ use <shortcuts.scad>  // see: http://www.thingiverse.com/thing:644830
 use <naca4.scad>
 use <Ducted_Fan.scad>
 
-slice_extruded();
+module shrouds() {
+    R(180,0,0) {
+        z_offset = -40;
+        xy_offset = 85;
+        T(xy_offset, xy_offset, z_offset)
+        slice_extruded();
+        T(xy_offset, -xy_offset, z_offset)
+        slice_extruded();
+        T(-xy_offset, -xy_offset, z_offset)
+        slice_extruded();
+        T(-xy_offset, xy_offset, z_offset)
+        slice_extruded();
+    }    
+}
+
+shrouds();
  
 default_af = 33; // NACA 0033 - pretty fat, good stall behavior
 prop_length = 153;
@@ -102,21 +117,6 @@ module fuselage()
     }    
 }
 fuselage();
- 
-T(350,0,0)
-place_in_rect(110, 70) // arange that stuff in a grid
-{
-// duct
-  T(50, 30, 0)
-  rotate_extrude($fn = 100)
-  translate([30, 100, 0])
-  R(0, -180, 90)
-  polygon(points = airfoil_data([-.1, .4, .1], L=100)); 
-
-// some winding airfoils
-linear_extrude(height = 100, twist = 30, scale = .5)
-  polygon(points = airfoil_data(30)); 
-}
 
 
 
