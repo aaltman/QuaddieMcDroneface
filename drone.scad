@@ -5,6 +5,9 @@
 
 use <shortcuts.scad>  // see: http://www.thingiverse.com/thing:644830
 use <naca4.scad>
+use <Ducted_Fan.scad>
+
+slice_extruded();
  
 default_af = 33; // NACA 0033 - pretty fat, good stall behavior
 prop_length = 153;
