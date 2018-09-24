@@ -19,18 +19,26 @@ module hollow_fuse_front() {
 }
 
 module longitudinal_ribs() {
-    translate([0,0,-20])
-    rotate([0,-90,0])
-    scale(3 / 1.2)
-    for (i=[0:7]) {
-        rotate([45*i,0,0])
-            linear_extrude(0.5) {
-                difference() {
-                    polygon(airfoil_data(33));
-                    scale([1.2,0.8,1])
+    difference() {
+        translate([0,0,-20])
+        rotate([0,-90,0])
+        scale(3 / 1.2)
+        for (i=[0:7]) {
+            rotate([45*i,0,0])
+                scale(1/1.2)
+                linear_extrude(0.5) {
+                    difference() {
                         polygon(airfoil_data(33));
+                        scale([1.2,0.8,1])
+                            polygon(airfoil_data(33));
+                    }
                 }
-            }
+        }
+        
+        // Punch out the front so I can run wires through.
+        translate([0,0,-250])
+        linear_extrude(500)
+        circle(17);
     }
 }
 
