@@ -72,10 +72,13 @@ function elliptical_airfoil_path(a,b,h,ang) =
     
 //polygon(airfoil_data(33));
 module longitudinal_ribs() {
+    translate([0,0,-20])
+    rotate([0,-90,0])
+    scale(3 / 1.2)
     for (i=[0:7]) {
         rotate([45*i,0,0])
             difference() {
-                polygon(airfoil_data(33));    
+                polygon(airfoil_data(33));
                 scale([1.2,0.8,1])
                     polygon(airfoil_data(33));
             }
@@ -107,6 +110,5 @@ module diagonal_ribs() {
 }
 
 //hollow_fuse_front();
-
-//diagonal_rib();
 diagonal_ribs();
+longitudinal_ribs();
