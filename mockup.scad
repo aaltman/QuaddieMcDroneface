@@ -1,6 +1,16 @@
+use <shortcuts.scad>  
 use <drone.scad>
+use <Naca4.scad>
+//use <sweep.scad>
 
-shrouds();
+//shrouds();
 motor_covers();
 arms();
-fuselage();
+difference() {
+    fuselage();
+    scale(0.9,0.9,0.9) {
+        fuselage();
+    }
+    translate([-100,-100,100])
+        cube(500);
+}

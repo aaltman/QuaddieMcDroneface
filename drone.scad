@@ -103,15 +103,21 @@ module motor_covers()
 module fuselage()
 {
     T(0,0,-20)
-    scale([0.8, 1.5])
+    scale([1, 1])
     rotate_extrude()
     Rz(90)
     scale(3)
     difference()
     {
         polygon(points = airfoil_data(default_af)); 
+        airfoil_data(default_af);
         square(100, 100); 
     }    
+}
+
+module fuse_cross_section()
+{
+    polygon(points = airfoil_data(default_af)); 
 }
 
 
