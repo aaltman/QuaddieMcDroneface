@@ -20,7 +20,7 @@ module hollow_fuse_front() {
 
 //hollow_fuse_front();
 
-/*echo(airfoil_data(33));
+echo(airfoil_data(33));
 af = airfoil_data(33);
 npoints = len(af);
 af_z = [for (n = [0:npoints - 1])
@@ -31,7 +31,7 @@ function f(t) = [
     (t / 1.5 + 0.5) * 100 * cos(6 * 360 * t),
     (t / 1.5 + 0.5) * 100 * sin(6 * 360 * t),
     af_z[0.005 * 200]
-]; */
+];
 
 function shape() = [
     [-10, -1],
@@ -63,8 +63,10 @@ module translational_sweep(path) {
     }
 }
 
-function elliptical_path(a,b,h,ang) =
-    [ for(x=[0:$fa:ang]) [a*cos(x), b*sin(x), h*x/ang] ]; 
+function elliptical_airfoil_path(a,b,h,ang) =
+    [ for(x=[0:$fa:ang]) [a*cos(x), b*sin(x), h*x* af_z[(npoints - 1)/ (ang / $fa)]] ]; 
+        
+//translational_sweep(elliptical_airfoil_path(40,40,4,360,$fa=5)) circle(5);
 
 //polygon(shape());
     
@@ -80,4 +82,31 @@ module longitudinal_ribs() {
     }
 }
 
-longitudinal_ribs();
+//longitudinal_ribs();
+
+module diagonal_rib_intersecting_plane() {
+    translate([-50,-20,-20])
+        rotate([60,0,0])
+            cube([500,500,2]);
+    
+}
+
+module diagonal_rib() {
+    intersection() {
+        hollow_fuse_front();
+        diagonal_rib_intersecting_plane();
+    }
+}
+
+module diagonal_ribs() {
+    step_size_degrees = 45;
+    for(step=[0:360 / step_size_degrees]) {
+        rotate([0,0,step * step_size_degrees])
+            diagonal_rib();
+    }
+}
+
+//hollow_fuse_front();
+
+//diagonal_rib();
+diagonal_ribs();
