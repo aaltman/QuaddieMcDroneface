@@ -25,11 +25,11 @@ module longitudinal_ribs() {
         scale(3 / 1.2)
         for (i=[0:7]) {
             rotate([45*i,0,0])
-                scale(1/1.2)
+                // To get it to fit inside: not quite right math though - scale(1/1.2)
                 linear_extrude(0.5) {
                     difference() {
                         polygon(airfoil_data(33));
-                        scale([1.2,0.8,1])
+                        scale([1.4,0.9,1])
                             polygon(airfoil_data(33));
                     }
                 }
@@ -57,7 +57,7 @@ module diagonal_rib() {
 }
 
 module diagonal_ribs() {
-    step_size_degrees = 45;
+    step_size_degrees = 90;
     for(step=[0:360 / step_size_degrees]) {
         rotate([0,0,step * step_size_degrees])
             diagonal_rib();
